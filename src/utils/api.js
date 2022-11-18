@@ -80,6 +80,17 @@ export function putCommentAPI(params) {
     })
 }
 
+export function addToCollectionAPI(params) {
+    return request({
+        url: "/myListContain",
+        method: 'post',
+        headers: {
+            token: store.state.token
+        },
+        params
+    })
+}
+
 export function singerAPI(params){
     return request({
         url:`/singer/${params}`,

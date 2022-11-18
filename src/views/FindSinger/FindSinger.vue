@@ -1,10 +1,10 @@
 <template>
   <div class="recommend" v-loading="loading">
     <div class="top-card-wrap">
-      <img src="https://p1.music.126.net/Ng-Y1hnNpxkMX8goopSrWA==/109951167795916089.jpg" class="bg-blur" alt="bg-blur">
+      <img src="../../assets/imgs/hoyo.png" class="bg-blur" alt="bg-blur">
       <div class="top-card">
         <div class="img-wrap">
-          <img src="https://p1.music.126.net/Ng-Y1hnNpxkMX8goopSrWA==/109951167795916089.jpg" alt="img">
+          <img src="../../assets/imgs/hoyo.png" alt="img">
         </div>
         <div class="card-content">
           <div class="card-tag">歌手推荐</div>

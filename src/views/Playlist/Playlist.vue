@@ -9,7 +9,7 @@
                 <div class="playlist-name">
                     <div class="tag1">歌单</div>{{playlistInfo.title}}
                 </div>
-                <div class="playAllBtn iconfont icon-play" @click="playAll"> 播放全部</div>
+                <div class="playAllBtn iconfont icon-play"> 播放全部</div>
                 <div class="playlist-tags">
                     <span>标签：</span>
                     <span  class="tags">{{playlistInfo.style}}</span>
@@ -45,8 +45,11 @@
                             </el-table-column>     
 
                             <el-table-column prop="song.songName" label="音乐标题" width=""></el-table-column>
-
-                            <el-table-column prop="singer.singerName" label="歌手" width="">                                                            
+                            <el-table-column prop="singer.singerName" label="歌手" width="">  
+                                <template slot-scope="scope">
+                                    <span style="cursor:pointer;color:#2980b9;">{{scope.row.singer.singerName}}</span>                                                          
+                                    <span class="plus" title="收藏歌曲" @click="addToCollection(scope.row,$event)" style="top:20px">+</span>
+                                </template>
                             </el-table-column>                            
                         </el-table>
                     </div>                    
@@ -94,7 +97,7 @@
 <script>
 import {formatDateFully} from '../../utils/utils'
 import elTableInfiniteScroll from 'el-table-infinite-scroll'
-import { playlistDetailAPI,commentsAPI,putCommentAPI } from '@/utils/api'
+import { playlistDetailAPI,commentsAPI,putCommentAPI,addToCollectionAPI } from '@/utils/api'
 
 export default {
     data(){
@@ -144,9 +147,26 @@ export default {
         }        
     },
     methods:{
+        addToCollection(row) {
+            const params = {
+                clientId: this.$store.state.uid,
+                songId: row.song.id
+            }
+            addToCollectionAPI(params)
+            this.$message({
+                showClose: true,
+                message: '收藏成功',
+                type: 'success'
+            });
+        },
         //todo,传入用户id、歌单id和评论内容
         commit() {
-            putCommentAPI({})
+            console.log(this.textarea);
+            putCommentAPI({
+                clientId: this.$store.state.uid,
+                sheetId: this.playlistId,
+                content: this.textarea
+            })
         },
         toArtist(id){
             this.$router.push(`/artist?artistId=${id}`)
@@ -251,24 +271,6 @@ export default {
                 this.loading = false
             }, 500);
         },
-        playAll(){
-            let allSongs = this.allData
-            this.$store.commit('clearMusicQueue')
-            for (const item of allSongs) {
-                let obj = {
-                    duration:item.dt,
-                    id:item.id,
-                    imgUrl:item.al.picUrl,
-                    artistInfo:item.ar,
-                    // singer:item.ar[0].name,
-                    songName:item.name
-                }
-                this.$store.commit('changeMusicQueue',obj)
-            }
-            // 若第一首歌无版权无法播放，会出现bug，自动播放也是
-            this.$store.commit('changeNowIndex',0)
-            this.play(allSongs[0])
-        }
     },  
 }
 </script>

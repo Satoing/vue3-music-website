@@ -50,6 +50,14 @@ const routes = [
     }
   },
   {
+    path: '/myplaylist',
+    component: () => import ('@/views/MyPlaylist/MyPlaylist.vue'),
+    beforeEnter: (to, from, next) => {
+      const isLogin = store.state.isLogin
+      isLogin ? next() : next('/login')
+    }
+  },
+  {
     path: '/artist',
     component: () => import ('@/views/Artist/Artist.vue'),
     beforeEnter: (to, from, next) => {

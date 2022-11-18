@@ -39,8 +39,17 @@ export default {
         if(this.type == "success") {
           this.$store.state.isLogin = true
           this.$router.push('/user')
+          this.$message({
+              showClose: true,
+              message: '登录成功',
+              type: 'success'
+          });
         }else {
-          alert('登录失败')
+          this.$message({
+              showClose: true,
+              message: '登录失败',
+              type: 'error'
+          });
         }
       })
       

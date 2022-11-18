@@ -1,10 +1,10 @@
 <template>
   <div class="recommend" v-loading="loading">
     <div class="top-card-wrap">
-      <img src="https://p1.music.126.net/yoRaxBY77koSqhjh52g-DA==/109951165434255510.jpg" class="bg-blur" alt="bg-blur">
+      <img src="../../assets/imgs/yuanshen.png" class="bg-blur" alt="bg-blur">
       <div class="top-card">
         <div class="img-wrap">
-          <img src="https://p1.music.126.net/yoRaxBY77koSqhjh52g-DA==/109951165434255510.jpg" alt="img">
+          <img src="../../assets/imgs/yuanshen.png" alt="img">
         </div>
         <div class="card-content">
           <div class="card-tag">精品歌单</div>

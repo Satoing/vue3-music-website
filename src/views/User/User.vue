@@ -15,14 +15,23 @@
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="创建的歌单" name="album">
         <ul class="albums">
-          <li class="al-item" v-for="(item,index1) in albumData" :key="index1">
+          <li class="al-item" @click="toMyCollection">
+            <div class="al-img-wrap">
+              <p class="iconfont icon-play bofang"></p>
+              <img v-lazy="topInfo.picUrl" alt="">
+            </div>
+            <div class="al-name">我的收藏</div>
+            <!-- <router-link to="/user" style="text-decoration-line: none; "><div class="al-time" @click="drop(item.id)">删除歌单</div></router-link> -->
+          </li>
+
+          <!-- <li class="al-item" v-for="(item,index1) in albumData" :key="index1">
             <div class="al-img-wrap">
               <p class="iconfont icon-play bofang"></p>
               <img v-lazy="item.img" alt="" @click="toAlbum(item.id)">
             </div>
             <div class="al-name" :title="item.title">{{item.title}}</div>
-            <router-link to="/user"><div class="al-time" @click="drop(item.id)">删除歌单</div></router-link>
-          </li>
+            <router-link to="/user" style="text-decoration-line: none; "><div class="al-time" @click="drop(item.id)">删除歌单</div></router-link>
+          </li> -->
         </ul>
       </el-tab-pane>
       
@@ -90,19 +99,26 @@ export default {
       this.getAlbumData()
   },
   methods:{
+      toMyCollection() {
+        this.$router.push('/collection')
+      },
       drop(id) {
         dropSonglistAPI(id)
       },
       toAlbum(id) {
-        this.$router.push(`playlist?id=${id}`)
+        this.$router.push(`myplaylist?id=${id}`)
       },
       handleClick(tab) {
           this.loading = true
           if(tab.label == "登出"){
             this.$store.state.isLogin = false
             this.$store.state.userImg = 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+            this.$message({
+                showClose: true,
+                message: '登出成功',
+                type: 'success'
+            });
             this.$router.push('/login')
-            alert("登出成功")
           }
           setTimeout(() => {
               this.loading = false
@@ -138,16 +154,6 @@ export default {
       }                     
   },
   filters:{
-      formatDate(now) { 
-          now = new Date(now)
-          var year=now.getFullYear();  //取得4位数的年份
-          var month=(now.getMonth()+1).toString().padStart(2,'0');  //取得日期中的月份，其中0表示1月，11表示12月
-          var date=now.getDate().toString().padStart(2,'0');      //返回日期月份中的天数（1到31）
-          return year+"-"+month+"-"+date; 
-      },
-      dealPlayCount(count) {
-          return count >= 100000 ? parseInt(count/10000)+'万' : count
-      }
   },
   watch:{
       $route(newVal){
@@ -223,7 +229,7 @@ export default {
 
 .al-item {
     font-size: 14px;
-    width: 300px;
+    width: 250px;
 }
 
 .al-img-wrap {

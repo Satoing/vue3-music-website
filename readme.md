@@ -40,7 +40,7 @@ npm run serve
 
 5. 可以按歌名或歌单名进行搜索，后端是模糊查询
 
-   ![](./shortcuts/8.jpg)
+   ![](./shortcuts/9.jpg)
 
 6. 播放器界面如下，仿照网易云音乐
 

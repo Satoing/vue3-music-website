@@ -1,4 +1,4 @@
-> 这是我们软工小组的音乐播放网站的用户前台项目，完整的项目见[music-player](https://github.com/abel-chai/music-player)。
+> 这是我们软工小组的音乐播放网站的用户前台项目，另外还有java后端和后台管理系统两个板块，分别由另外两个同学负责。完整的项目见[music-player](https://github.com/abel-chai/music-player)。
 
 # 运行
 
